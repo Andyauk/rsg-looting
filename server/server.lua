@@ -12,19 +12,25 @@ RegisterNetEvent('rsg-looting:server:lootreward', function()
         -- add items
         Player.Functions.AddItem(item, 1)
         TriggerClientEvent("inventory:client:ItemBox", src, RSGCore.Shared.Items[item], "add")
-        Player.Functions.AddMoney('bloodmoney', math.random(5,20))
+        Player.Functions.AddMoney('cash', math.random(1,5))
         -- webhook
-        TriggerEvent('rsg-log:server:CreateLog', 'loot', 'looted 🌟', 'orange', firstname..' '..lastname..' found Loot baby!')
+        TriggerEvent('rsg-log:server:CreateLog', 'loot', 'looted 🌟', 'orange', firstname..' '..lastname..' found '..item..' standard loot!')
     -- rare reward (5% chance)
     elseif chance > 95 then -- reward : 1 x rare
         local item = Config.RareItems[math.random(1, #Config.RareItems)]
         -- add items
         Player.Functions.AddItem(item, 1)
         TriggerClientEvent("inventory:client:ItemBox", src, RSGCore.Shared.Items[item], "add")
-        Player.Functions.AddMoney('bloodmoney', math.random(20,50))
+        Player.Functions.AddMoney('cash', math.random(5,10))
         -- webhook
-        TriggerEvent('rsg-log:server:CreateLog', 'loot', 'looted citizen 🌟', 'orange', firstname..' '..lastname..' found Loot baby!')
+        TriggerEvent('rsg-log:server:CreateLog', 'loot', 'looted citizen 🌟', 'orange', firstname..' '..lastname..' found '..item..' rare loot!')
     else
         print("something went wrong check for exploit!")
     end
+end)
+
+-- Callbacks
+RSGCore.Functions.CreateCallback('rsg-looting:server:isPlayerDead', function(_, cb, playerId)
+    local Player = RSGCore.Functions.GetPlayer(playerId)
+    cb(Player.PlayerData.metadata["isdead"])
 end)

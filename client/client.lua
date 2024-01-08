@@ -34,6 +34,7 @@ Citizen.CreateThread(function()
                                     local lootedcheck = Citizen.InvokeNative(0x8DE41E9902E85756, entityHit)
                                     if lootedcheck then
                                         TriggerServerEvent('rsg-looting:server:lootreward')
+                                        TriggerServerEvent('rsg-lawman:server:lawmanAlert', 'People are getting looted')
                                     else
                                         looting = false
                                     end

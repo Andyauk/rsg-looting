@@ -4,7 +4,7 @@ game 'rdr3'
 
 author 'RexShack#3041'
 description 'rsg-looting'
-version '1.0.0'
+version '1.0.1'
 
 client_script {
 	'client/client.lua',
@@ -16,6 +16,11 @@ server_scripts {
 
 shared_scripts {
 	'config.lua',
+}
+
+dependencies {
+    'rsg-core',
+    'rsg-lawman'
 }
 
 lua54 'yes'

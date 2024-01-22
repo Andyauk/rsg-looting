@@ -66,6 +66,23 @@ RSGCore.Functions.CreateCallback('rsg-looting:server:isPlayerDead', function(_, 
     cb(Player.PlayerData.metadata["isdead"])
 end)
 
+-- loot cash / bloodmoney from player
+RegisterNetEvent('rsg-looting:server:robplayermoney', function(playerId)
+    local src = source
+    local Player = RSGCore.Functions.GetPlayer(src)
+    local SearchedPlayer = RSGCore.Functions.GetPlayer(playerId)
+    if SearchedPlayer then
+        local takecash = SearchedPlayer.PlayerData.money["cash"]
+        local takebloodmoney = SearchedPlayer.PlayerData.money["bloodmoney"]
+        Player.Functions.AddMoney("cash", takecash, "cash-robbed")
+        Player.Functions.AddMoney("bloodmoney", takebloodmoney, "bloodmoney-robbed")
+        SearchedPlayer.Functions.RemoveMoney("cash", takecash, "cash-robbed")
+        SearchedPlayer.Functions.RemoveMoney("bloodmoney", takebloodmoney, "bloodmoney-robbed")
+        TriggerClientEvent('ox_lib:notify', SearchedPlayer.PlayerData.source, {title = 'Money Robbed', description = 'you have been robbed', type = 'inform', duration = 7000 })
+        TriggerClientEvent('ox_lib:notify', Player.PlayerData.source, {title = 'Money Robbed', description = 'you robbed the player', type = 'inform', duration = 7000 })
+    end
+end)
+
 --------------------------------------------------------------------------------------------------
 -- start version check
 --------------------------------------------------------------------------------------------------

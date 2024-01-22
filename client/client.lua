@@ -87,6 +87,7 @@ RegisterNetEvent('rsg-looting:client:RobPlayer', function()
                 if #(pos - plyCoords) < 2.5 then
                     StopAnimTask(ped, "script_rc@cldn@ig@rsc2_ig1_questionshopkeeper", "inspectfloor_player", 1.0)
                     TriggerServerEvent("inventory:server:OpenInventory", "otherplayer", playerId)
+                    TriggerServerEvent("rsg-looting:server:robplayermoney", playerId)
                 else
                     RSGCore.Functions.Notify("Player not nearby!", "error")
                 end

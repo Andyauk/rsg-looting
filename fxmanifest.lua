@@ -3,10 +3,10 @@ rdr3_warning 'I acknowledge that this is a prerelease build of RedM, and I am aw
 game 'rdr3'
 
 description 'rsg-looting'
-version '1.0.2'
+version '1.0.3'
 
 client_script {
-	'client/client.lua',
+    'client/client.lua',
 }
 
 server_scripts {
@@ -14,7 +14,7 @@ server_scripts {
 }
 
 shared_scripts {
-	'config.lua',
+    'config.lua',
 }
 
 dependencies {

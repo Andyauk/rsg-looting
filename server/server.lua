@@ -72,14 +72,20 @@ RegisterNetEvent('rsg-looting:server:robplayermoney', function(playerId)
     local Player = RSGCore.Functions.GetPlayer(src)
     local SearchedPlayer = RSGCore.Functions.GetPlayer(playerId)
     if SearchedPlayer then
-        local takecash = SearchedPlayer.PlayerData.money["cash"]
-        local takebloodmoney = SearchedPlayer.PlayerData.money["bloodmoney"]
-        Player.Functions.AddMoney("cash", takecash, "cash-robbed")
-        Player.Functions.AddMoney("bloodmoney", takebloodmoney, "bloodmoney-robbed")
-        SearchedPlayer.Functions.RemoveMoney("cash", takecash, "cash-robbed")
-        SearchedPlayer.Functions.RemoveMoney("bloodmoney", takebloodmoney, "bloodmoney-robbed")
-        TriggerClientEvent('ox_lib:notify', SearchedPlayer.PlayerData.source, {title = 'Money Robbed', description = 'you have been robbed', type = 'inform', duration = 7000 })
-        TriggerClientEvent('ox_lib:notify', Player.PlayerData.source, {title = 'Money Robbed', description = 'you robbed the player', type = 'inform', duration = 7000 })
+        if Config.TakeCash then
+            local takecash = SearchedPlayer.PlayerData.money["cash"]
+            Player.Functions.AddMoney("cash", takecash, "cash-robbed")
+            SearchedPlayer.Functions.RemoveMoney("cash", takecash, "cash-robbed")
+            TriggerClientEvent('ox_lib:notify', SearchedPlayer.PlayerData.source, {title = 'Cash Robbed', description = 'your cash has been robbed', type = 'inform', duration = 7000 })
+            TriggerClientEvent('ox_lib:notify', Player.PlayerData.source, {title = 'Cash Robbed', description = 'you robbed the players cash', type = 'inform', duration = 7000 })
+        end
+        if Config.TakeBloodMoney then
+            local takebloodmoney = SearchedPlayer.PlayerData.money["bloodmoney"]
+            Player.Functions.AddMoney("bloodmoney", takebloodmoney, "bloodmoney-robbed")
+            SearchedPlayer.Functions.RemoveMoney("bloodmoney", takebloodmoney, "bloodmoney-robbed")
+            TriggerClientEvent('ox_lib:notify', SearchedPlayer.PlayerData.source, {title = 'Blood Money Robbed', description = 'your blood money has been robbed', type = 'inform', duration = 7000 })
+            TriggerClientEvent('ox_lib:notify', Player.PlayerData.source, {title = 'Blood Money Robbed', description = 'you robbed the players blood money', type = 'inform', duration = 7000 })
+        end
     end
 end)
 
